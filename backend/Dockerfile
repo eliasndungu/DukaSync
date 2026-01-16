@@ -13,4 +13,4 @@ COPY . /app
 ENV PORT=8080
 EXPOSE 8080
 
-CMD exec gunicorn backend.wsgi:application --bind :$PORT --workers 3 --timeout 0
+CMD exec gunicorn backend.wsgi:application --bind :$PORT --workers ${WEB_CONCURRENCY:-1} --timeout ${GUNICORN_TIMEOUT:-120}

@@ -29,6 +29,7 @@ python manage.py migrate
 python manage.py runserver 0.0.0.0:8000
 ```
 
+- A sample environment file is included at `backend/.env.example`.
 - Health check: `GET /healthz` returns `{"status": "ok"}`.
 - Static files are served via WhiteNoise; collect with `python manage.py collectstatic` when needed.
 
