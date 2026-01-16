@@ -1,8 +1,56 @@
-# duka-pap
+# DukaSync Monorepo
 
-A modern React + TypeScript frontend for small retailers, built with Vite, Tailwind CSS, React Router, and Firebase (Auth + Firestore). Ready for deployment on Firebase Hosting.
+This repository now contains both the frontend (React + Firebase Hosting) and the backend (Django + Cloud Run) for DukaSync. Use the `web` folder for all frontend work and the new `backend` folder for the Django API to be containerized for Google Cloud Run.
 
-## Tech stack
+## Project structure
+
+```text
+.
+├── backend/          # Django project with Dockerfile for Cloud Run
+├── web/              # React + Vite frontend configured for Firebase Hosting
+├── functions/        # Firebase Functions (existing)
+├── mobile/           # Mobile client scaffold (existing)
+├── dataconnect/      # DataConnect assets (existing)
+├── firestore.rules   # Firestore security rules
+└── firestore.indexes.json
+```
+
+## Backend (`backend/`) — Django for Cloud Run
+
+### Quick start (local)
+
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env  # update secrets before production
+python manage.py migrate
+python manage.py runserver 0.0.0.0:8000
+```
+
+- Health check: `GET /healthz` returns `{"status": "ok"}`.
+- Static files are served via WhiteNoise; collect with `python manage.py collectstatic` when needed.
+
+### Deploy to Cloud Run
+
+```bash
+# from the repo root
+docker build -t gcr.io/<PROJECT_ID>/dukasyn-backend ./backend
+docker run --env-file backend/.env -p 8080:8080 gcr.io/<PROJECT_ID>/dukasyn-backend
+
+# then deploy
+gcloud run deploy duka-backend \
+  --image gcr.io/<PROJECT_ID>/dukasyn-backend \
+  --region <REGION> \
+  --allow-unauthenticated
+```
+
+Configure environment variables such as `DJANGO_SECRET_KEY`, `DJANGO_DEBUG`, `ALLOWED_HOSTS`, and `CSRF_TRUSTED_ORIGINS` (see `backend/.env.example`) in your Cloud Run service.
+
+## Frontend (`web/`) — React + Firebase Hosting
+
+### Tech stack
 
 - React + Vite (TypeScript)
 - Tailwind CSS
@@ -12,47 +60,14 @@ A modern React + TypeScript frontend for small retailers, built with Vite, Tailw
 - lucide-react icons
 - ESLint
 
-## Project structure
-
-```text
-duka-pap/
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   │   ├── common/
-│   │   ├── layout/
-│   ├── pages/
-│   │   ├── Home.tsx
-│   │   ├── Login.tsx
-│   │   ├── Dashboard.tsx
-│   ├── routes/
-│   │   └── AppRoutes.tsx
-│   ├── context/
-│   │   └── AuthContext.tsx
-│   ├── services/
-│   │   └── firebase.ts
-│   ├── hooks/
-│   ├── utils/
-│   ├── App.tsx
-│   ├── main.tsx
-│   └── index.css
-├── firebase.json
-├── .firebaserc
-├── vite.config.ts
-├── tailwind.config.ts
-└── README.md
-```
-
-## Getting started
-
-### 1. Install dependencies
+### Getting started
 
 ```bash
+cd web
 npm install
 ```
 
-### 2. Configure Firebase
+#### Configure Firebase
 
 Enable in your Firebase project:
 
@@ -74,7 +89,7 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=...
 VITE_FIREBASE_APP_ID=...
 ```
 
-Update `.firebaserc` with your project id:
+Update `web/.firebaserc` with your project id:
 
 ```jsonc
 {
@@ -84,27 +99,27 @@ Update `.firebaserc` with your project id:
 }
 ```
 
-### 3. Development
+### Development
 
 ```bash
+cd web
 npm run dev
 ```
 
 The app will be available at `http://localhost:5173` by default.
 
-### 4. Build
+### Build
 
 ```bash
+cd web
 npm run build
 ```
 
 The production build outputs to the `dist` directory, which Firebase Hosting is configured to serve.
 
-## Firebase Hosting
+### Firebase Hosting
 
-This project is pre-configured for Firebase Hosting as a single-page application (SPA).
-
-`firebase.json`:
+`web/firebase.json`:
 
 ```jsonc
 {
@@ -121,7 +136,7 @@ This project is pre-configured for Firebase Hosting as a single-page application
 }
 ```
 
-### Deploy
+#### Deploy
 
 Make sure you have the Firebase CLI installed and logged in:
 
@@ -134,11 +149,12 @@ firebase use your-firebase-project-id
 Then:
 
 ```bash
+cd web
 npm run build
-firebase deploy
+firebase deploy --only hosting
 ```
 
-## Routes
+### Routes
 
 - `/` – Public **Home** page
 - `/login` – **Auth** route, used for email/password sign-in
@@ -146,7 +162,7 @@ firebase deploy
 
 Protected routing is implemented in `src/routes/AppRoutes.tsx` with a `ProtectedRoute` wrapper that reads auth state from `AuthContext`.
 
-## Auth flow
+### Auth flow
 
 `AuthContext` (`src/context/AuthContext.tsx`) wraps the entire app and provides:
 
@@ -157,7 +173,7 @@ Protected routing is implemented in `src/routes/AppRoutes.tsx` with a `Protected
 
 `Login` page uses `login` and redirects to `/dashboard` on success.
 
-## Styling
+### Styling
 
 Tailwind is configured with:
 
@@ -166,7 +182,7 @@ Tailwind is configured with:
 
 Global styles live in `src/index.css`.
 
-## Absolute imports
+### Absolute imports
 
 Vite is configured with an alias:
 
@@ -185,11 +201,12 @@ import Home from '@/pages/Home'
 import { useAuth } from '@/context/AuthContext'
 ```
 
-## Linting
+### Linting
 
 Run ESLint:
 
 ```bash
+cd web
 npm run lint
 ```
 
@@ -200,14 +217,3 @@ Linting is configured with:
 - Basic TypeScript support
 
 You can customize the rules in `eslint.config.js`.
-
----
-
-This scaffold should run immediately after:
-
-```bash
-npm install
-npm run dev
-```
-
-Once you connect your own Firebase project and create a test user, you can log in and access the protected dashboard.
