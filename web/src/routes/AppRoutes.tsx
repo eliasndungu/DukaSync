@@ -1,7 +1,11 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import Home from '@/pages/Home'
-import Login from '@/pages/Login'
-import Dashboard from '@/pages/Dashboard'
+import Home from '@/pages/public/Home'
+import Login from '@/pages/auth/Login'
+import Overview from '@/pages/dashboards/Overview'
+import AdminDashboard from '@/pages/dashboards/AdminDashboard'
+import WholesalerDashboard from '@/pages/dashboards/WholesalerDashboard'
+import ShopkeeperDashboard from '@/pages/dashboards/ShopkeeperDashboard'
+import CustomerDashboard from '@/pages/dashboards/CustomerDashboard'
 import { useAuth } from '@/context/AuthContext'
 import { Loader2 } from 'lucide-react'
 import type { ReactNode } from 'react'
@@ -33,7 +37,39 @@ const AppRoutes = () => (
       path="/dashboard"
       element={
         <ProtectedRoute>
-          <Dashboard />
+          <Overview />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/dashboard/admin"
+      element={
+        <ProtectedRoute>
+          <AdminDashboard />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/dashboard/wholesalers"
+      element={
+        <ProtectedRoute>
+          <WholesalerDashboard />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/dashboard/shopkeepers"
+      element={
+        <ProtectedRoute>
+          <ShopkeeperDashboard />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/dashboard/customers"
+      element={
+        <ProtectedRoute>
+          <CustomerDashboard />
         </ProtectedRoute>
       }
     />

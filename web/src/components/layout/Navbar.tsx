@@ -27,7 +27,7 @@ const Navbar = () => {
             Home
           </NavLink>
           <NavLink to="/dashboard" className={navLinkClass}>
-            Dashboard
+            Workspaces
           </NavLink>
           <NavLink to="/login" className={navLinkClass}>
             Login
@@ -67,7 +67,7 @@ const Navbar = () => {
               Home
             </NavLink>
             <NavLink to="/dashboard" className={navLinkClass} onClick={() => setOpen(false)}>
-              Dashboard
+              Workspaces
             </NavLink>
             <NavLink to="/login" className={navLinkClass} onClick={() => setOpen(false)}>
               Login
