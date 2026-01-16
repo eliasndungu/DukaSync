@@ -4,8 +4,7 @@ A modern React + TypeScript frontend for small retailers, built with Vite, Tailw
 
 ## Tech stack
 
-- [React](https://react.dev/) + [Vite](https://vitejs.dev/)
-- TypeScript
+- React + Vite (TypeScript)
 - Tailwind CSS
 - React Router
 - Context API for auth state
@@ -55,18 +54,16 @@ npm install
 
 ### 2. Configure Firebase
 
-Create a new Firebase project and enable:
+Enable in your Firebase project:
 
 - Authentication → Email/Password
 - Firestore
 
-Then create `.env.local` in the project root:
+Copy the example environment file and fill in values from your Firebase console:
 
 ```bash
 cp .env.example .env.local
 ```
-
-Fill in the values from your Firebase console:
 
 ```env
 VITE_FIREBASE_API_KEY=...
@@ -89,8 +86,6 @@ Update `.firebaserc` with your project id:
 
 ### 3. Development
 
-Start the dev server:
-
 ```bash
 npm run dev
 ```
@@ -103,7 +98,7 @@ The app will be available at `http://localhost:5173` by default.
 npm run build
 ```
 
-The production build is output to the `dist` directory, which Firebase Hosting is configured to serve.
+The production build outputs to the `dist` directory, which Firebase Hosting is configured to serve.
 
 ## Firebase Hosting
 
@@ -149,7 +144,7 @@ firebase deploy
 - `/login` – **Auth** route, used for email/password sign-in
 - `/dashboard` – **Protected** route; requires an authenticated user
 
-Protected routing is implemented in `src/routes/AppRoutes.tsx` with a small `ProtectedRoute` wrapper that reads auth state from `AuthContext`.
+Protected routing is implemented in `src/routes/AppRoutes.tsx` with a `ProtectedRoute` wrapper that reads auth state from `AuthContext`.
 
 ## Auth flow
 
@@ -161,12 +156,6 @@ Protected routing is implemented in `src/routes/AppRoutes.tsx` with a small `Pro
 - `logout()` – signs out the current user
 
 `Login` page uses `login` and redirects to `/dashboard` on success.
-
-You can extend this to support:
-
-- Sign up
-- Password reset
-- Social providers (Google, Facebook, etc.)
 
 ## Styling
 
@@ -184,7 +173,7 @@ Vite is configured with an alias:
 ```ts
 resolve: {
   alias: {
-    "@": path.resolve(__dirname, "./src")
+    '@': fileURLToPath(new URL('./src', import.meta.url))
   }
 }
 ```
@@ -192,8 +181,8 @@ resolve: {
 You can import modules like:
 
 ```ts
-import Home from "@/pages/Home";
-import { useAuth } from "@/context/AuthContext";
+import Home from '@/pages/Home'
+import { useAuth } from '@/context/AuthContext'
 ```
 
 ## Linting
@@ -210,7 +199,7 @@ Linting is configured with:
 - `plugin:react-hooks/recommended`
 - Basic TypeScript support
 
-You can customize the rules in `.eslintrc.cjs`.
+You can customize the rules in `eslint.config.js`.
 
 ---
 
