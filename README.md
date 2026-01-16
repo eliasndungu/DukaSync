@@ -36,12 +36,12 @@ python manage.py runserver 0.0.0.0:8000
 
 ```bash
 # from the repo root
-docker build -t gcr.io/<PROJECT_ID>/dukasyn-backend ./backend
-docker run --env-file backend/.env -p 8080:8080 gcr.io/<PROJECT_ID>/dukasyn-backend
+docker build -t gcr.io/<PROJECT_ID>/dukasync-backend ./backend
+docker run --env-file backend/.env -p 8080:8080 gcr.io/<PROJECT_ID>/dukasync-backend
 
 # then deploy
 gcloud run deploy duka-backend \
-  --image gcr.io/<PROJECT_ID>/dukasyn-backend \
+  --image gcr.io/<PROJECT_ID>/dukasync-backend \
   --region <REGION> \
   --allow-unauthenticated
 ```

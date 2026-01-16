@@ -24,10 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+_default_secret = 'change-me'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', _default_secret if DEBUG else None)
 if not SECRET_KEY:
-    SECRET_KEY = 'change-me'
-if not DEBUG and SECRET_KEY == 'change-me':
     raise ValueError('DJANGO_SECRET_KEY must be set when DEBUG is False.')
 
 ALLOWED_HOSTS = [
