@@ -46,7 +46,7 @@ gcloud run deploy duka-backend \
   --allow-unauthenticated
 ```
 
-Configure environment variables such as `DJANGO_SECRET_KEY`, `DJANGO_DEBUG`, `ALLOWED_HOSTS`, and `CSRF_TRUSTED_ORIGINS` (see `backend/.env.example`) in your Cloud Run service.
+Configure environment variables such as `DJANGO_SECRET_KEY`, `DJANGO_DEBUG` (set to `False` for Cloud Run), `ALLOWED_HOSTS`, and `CSRF_TRUSTED_ORIGINS` (see `backend/.env.example`) in your Cloud Run service.
 
 ## Frontend (`web/`) — React + Firebase Hosting
 
