@@ -18,7 +18,12 @@ from django.contrib import admin
 from django.http import JsonResponse
 from django.urls import path
 
+
+def healthcheck(_request):
+    return JsonResponse({"status": "ok"})
+
+
 urlpatterns = [
-    path("healthz/", lambda request: JsonResponse({"status": "ok"})),
+    path("healthz/", healthcheck, name="healthz"),
     path('admin/', admin.site.urls),
 ]

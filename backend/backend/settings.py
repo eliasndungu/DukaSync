@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+import secrets
 from pathlib import Path
 
 import dj_database_url
@@ -26,10 +27,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
 
 # SECURITY WARNING: keep the secret key used in production secret!
-_default_secret = os.getenv('DJANGO_DEV_SECRET_KEY', 'dev-secret-key')
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', _default_secret if DEBUG else None)
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+DEV_SECRET_FILE = BASE_DIR / '.django_dev_secret'
+
+if not SECRET_KEY and DEBUG:
+    if DEV_SECRET_FILE.exists():
+        SECRET_KEY = DEV_SECRET_FILE.read_text().strip()
+    else:
+        SECRET_KEY = secrets.token_urlsafe(50)
+        DEV_SECRET_FILE.write_text(SECRET_KEY)
+
 if not SECRET_KEY:
-    raise ValueError('DJANGO_SECRET_KEY must be set when DEBUG is False.')
+    raise ValueError('DJANGO_SECRET_KEY must be set.')
 
 ALLOWED_HOSTS = [
     host.strip()
