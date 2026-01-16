@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "500795915978",
+    "project_id": "dukasync-4172f",
+    "storage_bucket": "dukasync-4172f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500795915978:android:5e24041f6233055b48be33",
+        "android_client_info": {
+          "package_name": "com.neuracraftsolutions.dukapap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASDjGewm1K0E3NeG0wCmUB1TmBotz1Yj8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
