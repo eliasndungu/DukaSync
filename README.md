@@ -20,18 +20,19 @@ This repository now contains both the frontend (React + Firebase Hosting) and th
 ### Quick start (local)
 
 ```bash
-cd backend
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env  # update secrets before production
-python manage.py migrate
-python manage.py runserver 0.0.0.0:8000
+# from the repo root
+python -m venv backend/.venv
+source backend/.venv/bin/activate
+pip install -r backend/requirements.txt
+cp backend/.env.example backend/.env  # update secrets before production
+python backend/manage.py migrate
+python backend/manage.py runserver 0.0.0.0:8000
 ```
 
 - A sample environment file is included at `backend/.env.example`.
 - Health check: `GET /healthz` returns `{"status": "ok"}`.
 - Static files are served via WhiteNoise; collect with `python manage.py collectstatic` when needed.
+- Configure `DATABASE_URL` for production (e.g., Cloud SQL); local development defaults to SQLite.
 
 ### Deploy to Cloud Run
 
