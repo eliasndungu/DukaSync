@@ -3,6 +3,10 @@ name: Deploy web to Firebase Hosting and backend to Cloud Run
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  actions: write
+
 jobs:
   deploy-frontend:
     name: Deploy web (Firebase Hosting)
