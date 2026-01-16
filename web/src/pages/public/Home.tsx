@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ShieldCheck, Sparkles, Store, ArrowRight } from 'lucide-react'
+import { ShieldCheck, Sparkles, Store, ArrowRight, LayoutDashboard, PackageSearch, ShoppingBag, Users } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 
 const features = [
@@ -15,8 +15,35 @@ const features = [
   },
   {
     title: 'Built to grow',
-    description: 'Clean React + Vite foundation ready for new features.',
+    description: 'Clean React + TypeScript foundation ready for new features.',
     icon: <Sparkles className="h-5 w-5 text-brand-600" />,
+  },
+]
+
+const workspaces = [
+  {
+    title: 'Admin workspace',
+    description: 'Executive overview for you and your co-founder.',
+    icon: <LayoutDashboard className="h-5 w-5 text-brand-600" />,
+    href: '/dashboard/admin',
+  },
+  {
+    title: 'Wholesalers',
+    description: 'Coordinate bulk inventory, pricing, and partner terms.',
+    icon: <PackageSearch className="h-5 w-5 text-brand-600" />,
+    href: '/dashboard/wholesalers',
+  },
+  {
+    title: 'Shopkeepers',
+    description: 'Frontline store operations, restocking, and POS insights.',
+    icon: <ShoppingBag className="h-5 w-5 text-brand-600" />,
+    href: '/dashboard/shopkeepers',
+  },
+  {
+    title: 'Customers',
+    description: 'Order history, loyalty perks, and support touchpoints.',
+    icon: <Users className="h-5 w-5 text-brand-600" />,
+    href: '/dashboard/customers',
   },
 ]
 
@@ -36,17 +63,17 @@ const Home = () => {
               DukaSync helps shop owners run faster, smarter, and together.
             </h1>
             <p className="text-lg text-slate-600">
-              A minimal React + TypeScript starter with Tailwind CSS, React Router, and Firebase
-              Auth. Ship new features quickly and deploy to Firebase Hosting with confidence.
+              A minimal React + TypeScript starter with Tailwind CSS, React Router, and Firebase Auth. Ship new features
+              quickly and deploy to Firebase Hosting with confidence.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <Link to={user ? '/dashboard' : '/login'} className="btn-primary">
-              {user ? 'Go to dashboard' : 'Login to continue'}
+              {user ? 'Go to workspaces' : 'Login to continue'}
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link to="/dashboard" className="btn-secondary">
-              Explore dashboard
+              Explore workspaces
             </Link>
           </div>
           <div className="flex items-center gap-4 text-sm text-slate-500">
@@ -89,6 +116,39 @@ const Home = () => {
               Runs on React, Vite, Tailwind CSS, React Router, and Firebase (Auth + Firestore).
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="space-y-6">
+        <div className="flex items-center justify-between gap-4">
+          <div className="space-y-2">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">Role-based workspaces</p>
+            <h2 className="text-2xl font-bold text-slate-900">Choose where you need to work</h2>
+            <p className="text-slate-600">
+              Organized routes for admins, wholesalers, shopkeepers, and customers so every persona has a clear entry
+              point.
+            </p>
+          </div>
+          <Link to="/dashboard" className="btn-secondary">
+            View workspace hub
+          </Link>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {workspaces.map((workspace) => (
+            <Link
+              key={workspace.title}
+              to={workspace.href}
+              className="group rounded-xl border border-slate-100 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
+            >
+              <div className="mb-3 inline-flex rounded-lg bg-brand-50 p-2 text-brand-700">{workspace.icon}</div>
+              <p className="text-base font-semibold text-slate-900">{workspace.title}</p>
+              <p className="mt-1 text-sm text-slate-600">{workspace.description}</p>
+              <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-brand-700">
+                Open workspace
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          ))}
         </div>
       </section>
     </div>

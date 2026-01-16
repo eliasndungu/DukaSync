@@ -160,7 +160,11 @@ firebase deploy --only hosting
 
 - `/` – Public **Home** page
 - `/login` – **Auth** route, used for email/password sign-in
-- `/dashboard` – **Protected** route; requires an authenticated user
+- `/dashboard` – **Protected** workspace hub; requires an authenticated user
+- `/dashboard/admin` – **Protected** admin workspace
+- `/dashboard/wholesalers` – **Protected** wholesalers workspace
+- `/dashboard/shopkeepers` – **Protected** shopkeepers workspace
+- `/dashboard/customers` – **Protected** customers workspace
 
 Protected routing is implemented in `src/routes/AppRoutes.tsx` with a `ProtectedRoute` wrapper that reads auth state from `AuthContext`.
 
