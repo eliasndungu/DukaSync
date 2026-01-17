@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "web/**"
-      - "backend/**" # intentionally limited to app code changes
   workflow_dispatch:
 
 permissions:
