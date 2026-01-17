@@ -1,6 +1,13 @@
 name: Deploy web to Firebase Hosting and backend to Cloud Run
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "web/**"
+      - "backend/**"
+      - ".github/workflows/**"
   workflow_dispatch:
 
 permissions:
@@ -11,6 +18,14 @@ jobs:
   deploy-frontend:
     name: Deploy web (Firebase Hosting)
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'workflow_dispatch' || (
+        github.event_name == 'push' && (
+          contains(toJSON(github.event.commits.*.added), 'web/') ||
+          contains(toJSON(github.event.commits.*.modified), 'web/') ||
+          contains(toJSON(github.event.commits.*.removed), 'web/')
+        )
+      )
     defaults:
       run:
         working-directory: web
@@ -40,6 +55,14 @@ jobs:
   deploy-backend:
     name: Deploy backend (Cloud Run)
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'workflow_dispatch' || (
+        github.event_name == 'push' && (
+          contains(toJSON(github.event.commits.*.added), 'backend/') ||
+          contains(toJSON(github.event.commits.*.modified), 'backend/') ||
+          contains(toJSON(github.event.commits.*.removed), 'backend/')
+        )
+      )
     env:
       IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.CLOUD_RUN_SERVICE_NAME }}:${{ github.sha }}
     steps:
@@ -68,3 +91,4 @@ jobs:
             --region ${{ secrets.GCP_REGION }} \
             --platform managed \
             --quiet
+            
