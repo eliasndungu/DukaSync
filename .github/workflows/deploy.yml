@@ -6,8 +6,7 @@ on:
       - main
     paths:
       - "web/**"
-      - "backend/**"
-      - ".github/workflows/**"
+      - "backend/**" # intentionally limited to app code changes
   workflow_dispatch:
 
 permissions:
@@ -15,17 +14,30 @@ permissions:
   id-token: write
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      web: ${{ steps.filter.outputs.web }}
+      backend: ${{ steps.filter.outputs.backend }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Detect changed paths
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            web:
+              - 'web/**'
+            backend:
+              - 'backend/**'
+
   deploy-frontend:
     name: Deploy web (Firebase Hosting)
     runs-on: ubuntu-latest
-    if: |
-      github.event_name == 'workflow_dispatch' || (
-        github.event_name == 'push' && (
-          contains(toJSON(github.event.commits.*.added), 'web/') ||
-          contains(toJSON(github.event.commits.*.modified), 'web/') ||
-          contains(toJSON(github.event.commits.*.removed), 'web/')
-        )
-      )
+    needs: changes
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.web == 'true'
     defaults:
       run:
         working-directory: web
@@ -55,14 +67,8 @@ jobs:
   deploy-backend:
     name: Deploy backend (Cloud Run)
     runs-on: ubuntu-latest
-    if: |
-      github.event_name == 'workflow_dispatch' || (
-        github.event_name == 'push' && (
-          contains(toJSON(github.event.commits.*.added), 'backend/') ||
-          contains(toJSON(github.event.commits.*.modified), 'backend/') ||
-          contains(toJSON(github.event.commits.*.removed), 'backend/')
-        )
-      )
+    needs: changes
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.backend == 'true'
     env:
       IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.CLOUD_RUN_SERVICE_NAME }}:${{ github.sha }}
     steps:
