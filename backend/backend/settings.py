@@ -34,8 +34,8 @@ if not SECRET_KEY and DEBUG:
     if DEV_SECRET_FILE.exists():
         SECRET_KEY = DEV_SECRET_FILE.read_text().strip()
     else:
+        # Generate a secret key for this debug run without persisting it to disk.
         SECRET_KEY = secrets.token_urlsafe(50)
-        DEV_SECRET_FILE.write_text(SECRET_KEY)
 
 if not SECRET_KEY:
     raise ValueError('DJANGO_SECRET_KEY must be set.')
