@@ -4,44 +4,44 @@ import { useAuth } from '@/context/AuthContext'
 
 const features = [
   {
-    title: 'Realtime inventory',
-    description: 'Keep products, stock, and sales in sync with your team.',
-    icon: <Store className="h-5 w-5 text-brand-600" />,
-  },
-  {
-    title: 'Secure by default',
-    description: 'Protected routes powered by Firebase Authentication.',
-    icon: <ShieldCheck className="h-5 w-5 text-brand-600" />,
-  },
-  {
-    title: 'Built to grow',
-    description: 'Clean React + TypeScript foundation ready for new features.',
+    title: 'Predictive restock',
+    description: 'See what to reorder before shelves look thin.',
     icon: <Sparkles className="h-5 w-5 text-brand-600" />,
+  },
+  {
+    title: 'Warm customer moments',
+    description: 'Remember loyal shoppers and greet them with timely offers.',
+    icon: <Users className="h-5 w-5 text-brand-600" />,
+  },
+  {
+    title: 'Peace-of-mind security',
+    description: 'Private sign-ins and gentle alerts keep your team safe.',
+    icon: <ShieldCheck className="h-5 w-5 text-brand-600" />,
   },
 ]
 
 const workspaces = [
   {
     title: 'Admin workspace',
-    description: 'Executive overview for you and your co-founder.',
+    description: 'Plan goals, approvals, and finances with clarity.',
     icon: <LayoutDashboard className="h-5 w-5 text-brand-600" />,
     href: '/dashboard/admin',
   },
   {
     title: 'Wholesalers',
-    description: 'Coordinate bulk inventory, pricing, and partner terms.',
+    description: 'Align deliveries, pricing, and partner promises.',
     icon: <PackageSearch className="h-5 w-5 text-brand-600" />,
     href: '/dashboard/wholesalers',
   },
   {
     title: 'Shopkeepers',
-    description: 'Frontline store operations, restocking, and POS insights.',
+    description: 'Daily tasks, stock counts, and quick reorders.',
     icon: <ShoppingBag className="h-5 w-5 text-brand-600" />,
     href: '/dashboard/shopkeepers',
   },
   {
     title: 'Customers',
-    description: 'Order history, loyalty perks, and support touchpoints.',
+    description: 'Receipts, rewards, and support in one place.',
     icon: <Users className="h-5 w-5 text-brand-600" />,
     href: '/dashboard/customers',
   },
@@ -56,20 +56,20 @@ const Home = () => {
         <div className="space-y-6">
           <span className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-4 py-2 text-sm font-medium text-brand-700">
             <Sparkles className="h-4 w-4" />
-            Modern retail toolkit
+            Inspired by Neuracraft
           </span>
           <div className="space-y-4">
             <h1 className="text-3xl font-bold leading-tight text-slate-900 sm:text-4xl lg:text-5xl">
-              DukaSync helps shop owners run faster, smarter, and together.
+              An AI co-pilot for every neighborhood shop.
             </h1>
             <p className="text-lg text-slate-600">
-              A minimal React + TypeScript starter with Tailwind CSS, React Router, and Firebase Auth. Ship new features
-              quickly and deploy to Firebase Hosting with confidence.
+              DukaSync keeps shelves full, customers loyal, and teams in sync. No tech talk—just a calm assistant that
+              guides your shop the way you run it.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <Link to={user ? '/dashboard' : '/login'} className="btn-primary">
-              {user ? 'Go to workspaces' : 'Login to continue'}
+              {user ? 'Open workspace' : 'Start with DukaSync'}
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link to="/dashboard" className="btn-secondary">
@@ -79,11 +79,11 @@ const Home = () => {
           <div className="flex items-center gap-4 text-sm text-slate-500">
             <div className="flex items-center gap-2">
               <div className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
-              Deployed-ready SPA
+              Always-on guidance
             </div>
             <div className="flex items-center gap-2">
               <div className="h-2.5 w-2.5 rounded-full bg-brand-500" />
-              Firebase powered
+              Private by design
             </div>
           </div>
         </div>
@@ -95,12 +95,12 @@ const Home = () => {
                   <Store className="h-6 w-6" />
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500">Firebase Hosting</p>
-                  <p className="text-lg font-semibold text-slate-900">duka-pap.web.app</p>
+                  <p className="text-sm text-slate-500">Live assistant</p>
+                  <p className="text-lg font-semibold text-slate-900">DukaSync Pulse</p>
                 </div>
               </div>
               <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700">
-                Ready
+                Calm & online
               </span>
             </div>
             <div className="grid gap-4 sm:grid-cols-3">
@@ -113,7 +113,7 @@ const Home = () => {
               ))}
             </div>
             <div className="rounded-xl border border-dashed border-brand-200 bg-brand-50/40 p-4 text-sm text-brand-800">
-              Runs on React, Vite, Tailwind CSS, React Router, and Firebase (Auth + Firestore).
+              A serene experience inspired by Neuracraft—built to keep your shop human, helpful, and effortlessly in sync.
             </div>
           </div>
         </div>

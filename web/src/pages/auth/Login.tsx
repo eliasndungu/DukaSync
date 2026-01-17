@@ -35,7 +35,7 @@ const Login = () => {
         </div>
         <h1 className="text-3xl font-bold text-slate-900">Login</h1>
         <p className="text-slate-600">
-          Access your dashboard with your email and password. Authentication is powered by Firebase.
+          Access your dashboard with your email and password. Your account stays private with our layered safeguards.
         </p>
       </div>
 
