@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "web/**"
-      - "backend/**"
+      - "backend/**" # intentionally limited to app code changes
   workflow_dispatch:
 
 permissions:
