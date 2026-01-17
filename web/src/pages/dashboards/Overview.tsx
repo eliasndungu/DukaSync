@@ -60,38 +60,37 @@ const Overview = () => {
             </div>
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            Authentication is managed by Firebase Auth and shared through the Context API.
+            Your session is protected with layered checks and mindful alerts.
           </p>
         </div>
 
         <div className="card p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Firestore</p>
-              <p className="text-lg font-semibold text-slate-900">Connected</p>
+              <p className="text-sm text-slate-500">Store heartbeat</p>
+              <p className="text-lg font-semibold text-slate-900">Steady</p>
             </div>
             <div className="rounded-xl bg-emerald-50 p-3 text-emerald-700">
               <BarChart3 className="h-5 w-5" />
             </div>
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            Ready to store shop data, inventory, and orders. Start wiring your collections.
+            Inventory, sales, and community signals stay synchronized so your team can act quickly.
           </p>
         </div>
 
         <div className="card p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Hosting</p>
-              <p className="text-lg font-semibold text-slate-900">Firebase SPA</p>
+              <p className="text-sm text-slate-500">Experience</p>
+              <p className="text-lg font-semibold text-slate-900">Smooth & current</p>
             </div>
             <div className="rounded-xl bg-slate-100 p-3 text-slate-700">
               <span className="text-xs font-semibold uppercase tracking-wide">SPA</span>
             </div>
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            Build with <code className="rounded bg-slate-100 px-1">npm run build</code> then deploy with{' '}
-            <code className="rounded bg-slate-100 px-1">firebase deploy</code>.
+            Updates roll out quietly so shop owners stay focused on customers, not commands.
           </p>
         </div>
       </div>
