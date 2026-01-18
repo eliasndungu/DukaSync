@@ -15,6 +15,10 @@ This repository now contains both the frontend (React + Firebase Hosting) and th
 └── firestore.indexes.json
 ```
 
+## Business & partnership docs
+
+- [DukaPap Partnership & Delivery Plan](docs/partnership-plan.md): roles, profit/loss sharing, delivery phases, and operating costs.
+
 ## Backend (`backend/`) — Django for Cloud Run
 
 ### Quick start (local)
