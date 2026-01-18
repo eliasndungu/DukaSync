@@ -16,7 +16,7 @@ This document aligns Elias Ndungu and Perpetua Nganga on how DukaPap will be bui
 
 - Profit split: **Elias 60% / Perpetua 40%** to reflect current engineering and infrastructure investment; revisit after launch or after 12 months based on contribution changes.
 - Losses/expenses: Reimburse direct project costs **before** profit split (Firebase, Google Cloud Run, GitHub Copilot/Agent, WiFi at ~3,000 KES/month, and any integration tools).
-- Expense tracking: Record receipts monthly; both partners approve any single expense above an agreed threshold.
+- Expense tracking: Record receipts monthly; both partners approve any single expense above **5,000 KES**.
 - Decision log: Keep a shared decision log (Notion/Doc) for budget approvals and roadmap changes.
 
 ## Delivery Phases & Milestones (non-technical summary)
@@ -53,7 +53,7 @@ This document aligns Elias Ndungu and Perpetua Nganga on how DukaPap will be bui
 | Firebase (Auth, Firestore, Hosting) | Usage-based; covers auth, database, hosting for the web app. |
 | Google Cloud Run | Pay-as-you-go for the Django API containers. |
 | GitHub Copilot/Agent | Subscription/usage for development productivity. |
-| WiFi | ~**3,000 KES/month** to enable development and monitoring. |
+| WiFi | ~**3,000 KES/month** for dedicated development connectivity (paid by Elias). |
 
 Review costs monthly; adjust budget before adding new paid services.
 
