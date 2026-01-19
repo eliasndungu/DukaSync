@@ -42,13 +42,17 @@ const initialState: ProtectedRouteState = {
 }
 
 const ProtectedRoute = ({ allowedRoles, children }: ProtectedRouteProps) => {
-  const [state, setState] = useState<ProtectedRouteState>(initialState)
+  const [state, setState] = useState<ProtectedRouteState>(() => {
+    if (!firebaseConfigured || !app?.options?.projectId) {
+      return { ...initialState, loading: false, error: 'config' }
+    }
+    return initialState
+  })
 
   useEffect(() => {
     let isMounted = true
 
     if (!firebaseConfigured || !app?.options?.projectId) {
-      setState((prev) => ({ ...prev, loading: false, error: 'config' }))
       return
     }
 

@@ -90,7 +90,7 @@ const Login = () => {
         </form>
 
         <div className="mt-6 text-center text-sm text-slate-500">
-          Need an account? <Link to="/" className="font-semibold text-brand-700">Return home</Link>
+          Need an account? <Link to="/register" className="text-slate-900 underline">Sign up</Link>.
         </div>
       </div>
     </div>
