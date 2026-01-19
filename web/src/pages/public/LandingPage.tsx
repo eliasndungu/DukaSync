@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { firestore } from '@/firebaseConfig'
+import ApkDownloadButton from '@/components/ApkDownloadButton'
 
 type ContactFormData = {
   name: string
@@ -70,6 +71,30 @@ const syncSteps = [
     title: 'Reconcile and grow',
     description: 'Invoice matches and stock movements roll into dashboards so finance, ops, and sales stay aligned.',
     icon: <BarChart3 className="h-5 w-5 text-brand-700" />,
+  },
+]
+
+const aiJourneys = [
+  {
+    title: 'Wholesaler copilot',
+    description: 'Predictive replenishment watches routes and price lists, keeping branches aligned automatically.',
+    accent: 'from-emerald-300 via-brand-400 to-indigo-400',
+    icon: <Store className="h-5 w-5 text-white" />,
+    signal: 'Live route tuning',
+  },
+  {
+    title: 'Shopkeeper assistant',
+    description: 'Receipts, labels, and variances are suggested in real time so shelves match incoming deliveries.',
+    accent: 'from-amber-300 via-emerald-300 to-brand-500',
+    icon: <ShoppingBag className="h-5 w-5 text-white" />,
+    signal: 'Auto-balanced shelves',
+  },
+  {
+    title: 'Customer concierge',
+    description: 'AI drafts promised delivery windows, reserves inventory, and shares receipts instantly.',
+    accent: 'from-indigo-300 via-brand-400 to-emerald-300',
+    icon: <Users className="h-5 w-5 text-white" />,
+    signal: 'Predictive availability',
   },
 ]
 
@@ -200,7 +225,7 @@ const LandingPage: React.FC = () => {
                 </div>
               </div>
               <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700">
-                Realtime
+                Real-time
               </span>
             </div>
 
@@ -250,6 +275,71 @@ const LandingPage: React.FC = () => {
               DukaPap bridges wholesalers, shopkeepers, and customers so every order, invoice, and stock move is trusted
               and synced.
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden rounded-3xl border border-indigo-100 bg-slate-900 px-6 py-8 text-white shadow-card">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-16 top-10 h-40 w-40 rounded-full bg-indigo-500/20 blur-3xl" />
+          <div className="absolute bottom-0 right-6 h-32 w-32 animate-pulse rounded-full bg-emerald-400/20 blur-2xl" />
+        </div>
+        <div className="relative grid gap-8 lg:grid-cols-3">
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-200">
+              <Sparkles className="h-4 w-4" />
+              AI retail copilot
+            </div>
+            <h2 className="text-3xl font-bold leading-tight">See how every role feels with DukaPap AI</h2>
+            <p className="text-sm text-slate-200">
+              Our models listen to deliveries, invoices, and customer intent to stage the next best action for wholesalers,
+              shopkeepers, and shoppers.
+            </p>
+            <div className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10">
+                  <Link2 className="h-5 w-5 text-emerald-200" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-white">Real-time signal graph</p>
+                  <p className="text-xs text-slate-200">Orders, invoices, and stock move in unison with gentle AI nudges.</p>
+                </div>
+              </div>
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                <div className="h-full w-5/6 animate-pulse bg-gradient-to-r from-emerald-300 via-brand-400 to-indigo-400" />
+              </div>
+              <div className="rounded-xl border border-white/10 bg-white text-slate-900 shadow-sm">
+                <div className="flex items-center justify-between px-4 pt-4">
+                  <div>
+                    <p className="text-sm font-semibold">Try the mobile app</p>
+                    <p className="text-xs text-slate-600">Walk the AI-assisted workflow anywhere.</p>
+                  </div>
+                  <span className="rounded-full bg-brand-50 px-3 py-1 text-[11px] font-semibold text-brand-700">Android</span>
+                </div>
+                <div className="px-4 pb-4">
+                  <ApkDownloadButton />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:col-span-2">
+            {aiJourneys.map((journey) => (
+              <div
+                key={journey.title}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-4 shadow-md transition hover:-translate-y-1 hover:border-white/30 hover:shadow-lg"
+              >
+                <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-white/10 blur-2xl transition group-hover:scale-110" />
+                <div className="flex items-center justify-between">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10">{journey.icon}</div>
+                  <span className="text-xs font-semibold text-emerald-200">{journey.signal}</span>
+                </div>
+                <p className="mt-3 text-lg font-semibold">{journey.title}</p>
+                <p className="mt-2 text-sm text-slate-200">{journey.description}</p>
+                <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className={'h-full w-3/4 animate-pulse bg-gradient-to-r ' + journey.accent} />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
