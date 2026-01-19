@@ -6,6 +6,7 @@ import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { auth, database, firestore } from '@/services/firebase'
 import type { UserRole } from '@/types/domain'
 import { BadgePlus, Building2, Loader2 } from 'lucide-react'
+import DukaSyncTermsModal from '@/components/modals/DukaSyncTermsModal'
 
 type SignupRole = Exclude<UserRole, 'admin'>
 
@@ -14,6 +15,8 @@ const accountOptions: { value: SignupRole; label: string; helper: string }[] = [
   { value: 'shopkeeper', label: 'Shopkeeper', helper: 'Run a retail shop with supplier links' },
   { value: 'customer', label: 'Customer', helper: 'Track purchases and orders' },
 ]
+
+const termsRequiredAccountTypes: SignupRole[] = ['wholesaler']
 
 const defaultChartOfAccounts = {
   wholesaler_cash: { balance: 0, currency: 'KES', label: 'Wholesaler Cash' },
@@ -37,6 +40,11 @@ const SignupPage = () => {
   const [status, setStatus] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [termsAccepted, setTermsAccepted] = useState(false)
+  const [showTermsModal, setShowTermsModal] = useState(false)
+
+  // Assumption: business-style accounts in this list must accept terms before signup.
+  const requiresTermsAcceptance = termsRequiredAccountTypes.includes(accountType)
 
   const statusMessage = useMemo(() => {
     if (error) return error
@@ -59,6 +67,11 @@ const SignupPage = () => {
 
     if (accountType === 'wholesaler' && !businessName.trim()) {
       setError('A business name is required for wholesalers.')
+      return
+    }
+
+    if (requiresTermsAcceptance && !termsAccepted) {
+      setError('You must accept the Terms and Conditions to create this type of account.')
       return
     }
 
@@ -308,6 +321,35 @@ const SignupPage = () => {
             </div>
           )}
 
+          {requiresTermsAcceptance && (
+            <div className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <input
+                id="termsAccepted"
+                type="checkbox"
+                checked={termsAccepted}
+                onChange={(event) => setTermsAccepted(event.target.checked)}
+                aria-describedby="termsAcceptedDescription"
+                aria-required={requiresTermsAcceptance}
+                className="mt-1 h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+              />
+              <div className="space-y-1 text-sm text-slate-700">
+                <label htmlFor="termsAccepted" className="block font-medium text-slate-900">
+                  I have read and accept the Terms and Conditions for DukaSync business accounts.
+                </label>
+                <p id="termsAcceptedDescription" className="text-slate-600">
+                  Wholesalers must agree to the DukaSync terms covering deliveries, invoicing, and data use.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setShowTermsModal(true)}
+                  className="font-semibold text-brand-700 hover:underline"
+                >
+                  View Terms and Conditions
+                </button>
+              </div>
+            </div>
+          )}
+
           <button
             type="submit"
             disabled={submitting}
@@ -334,6 +376,15 @@ const SignupPage = () => {
           </Link>
         </div>
       </div>
+
+      <DukaSyncTermsModal
+        isOpen={showTermsModal}
+        onClose={() => setShowTermsModal(false)}
+        onAccept={() => {
+          setTermsAccepted(true)
+          setShowTermsModal(false)
+        }}
+      />
     </div>
   )
 }
