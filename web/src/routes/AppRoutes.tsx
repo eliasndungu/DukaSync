@@ -52,14 +52,6 @@ const AppRoutes = () => (
     <Route
       path="/dashboard/customers"
       element={
-        <ProtectedRoute>
-          <CustomerDashboard />
-        </ProtectedRoute>
-      }
-    />
-        <Route
-      path="/dashboard/customers"
-      element={
         <ProtectedRoute allowedRoles={['customer']}>
           <CustomerDashboard />
         </ProtectedRoute>

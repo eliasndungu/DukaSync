@@ -41,14 +41,14 @@ const DukaSyncFooter: FC = () => {
               </a>
             </li>
             <li>
-              <Link to="/docs" className="hover:text-brand-700">
+              <a href="/#docs" className="hover:text-brand-700">
                 API Docs
-              </Link>
+              </a>
             </li>
             <li>
-              <Link to="/careers" className="hover:text-brand-700">
+              <a href="/#careers" className="hover:text-brand-700">
                 Careers
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
@@ -59,9 +59,9 @@ const DukaSyncFooter: FC = () => {
             Build with DukaSync APIs to sync deliveries, invoices, and stock with your existing POS or ERP. Webhooks,
             sandbox keys, and docs are ready for your team.
           </p>
-          <Link to="/docs" className="inline-flex items-center text-sm font-semibold text-brand-700 hover:text-brand-800">
+          <a href="/#docs" className="inline-flex items-center text-sm font-semibold text-brand-700 hover:text-brand-800">
             Read the docs
-          </Link>
+          </a>
         </div>
 
         <div className="space-y-3">

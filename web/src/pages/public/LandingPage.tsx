@@ -1,5 +1,5 @@
 import { useRef, useState, type FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
   ArrowRight,
   BarChart3,
@@ -516,10 +516,10 @@ const LandingPage: React.FC = () => {
             Use signed webhooks and sandbox keys to test before you go live.
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            <Link to="/docs" className="btn-primary">
+            <a href="/#docs" className="btn-primary">
               View API docs
               <ArrowRight className="h-4 w-4" />
-            </Link>
+            </a>
             <button onClick={() => navigate('/login')} className="btn-secondary">
               Launch console
               <ArrowRight className="h-4 w-4" />
@@ -560,13 +560,13 @@ const LandingPage: React.FC = () => {
             infrastructure. Join us to ship experiences that keep wholesalers, shops, and customers moving.
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            <Link to="/careers" className="btn-primary">
+            <a href="/#careers" className="btn-primary">
               See open roles
               <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link to="/docs" className="btn-secondary">
+            </a>
+            <a href="/#docs" className="btn-secondary">
               Explore platform
-            </Link>
+            </a>
           </div>
         </div>
         <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-4">
