@@ -103,11 +103,6 @@ const LandingPage: React.FC = () => {
     wholesalersRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const scrollToSection = (sectionId: string) => {
-    const target = document.getElementById(sectionId)
-    target?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setStatus('loading')
@@ -521,7 +516,7 @@ const LandingPage: React.FC = () => {
             Use signed webhooks and sandbox keys to test before you go live.
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            <button type="button" onClick={() => scrollToSection('docs')} className="btn-primary">
+            <button type="button" onClick={() => navigate('/docs')} className="btn-primary">
               View API docs
               <ArrowRight className="h-4 w-4" />
             </button>
@@ -565,11 +560,11 @@ const LandingPage: React.FC = () => {
             infrastructure. Join us to ship experiences that keep wholesalers, shops, and customers moving.
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            <button type="button" onClick={() => scrollToSection('careers')} className="btn-primary">
+            <button type="button" onClick={() => navigate('/careers')} className="btn-primary">
               See open roles
               <ArrowRight className="h-4 w-4" />
             </button>
-            <button type="button" onClick={() => scrollToSection('docs')} className="btn-secondary">
+            <button type="button" onClick={() => navigate('/docs')} className="btn-secondary">
               Explore platform
             </button>
           </div>

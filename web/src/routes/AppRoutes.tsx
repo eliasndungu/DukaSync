@@ -9,6 +9,8 @@ import CustomerDashboard from '@/pages/dashboards/CustomerDashboard'
 import Register from '@/pages/auth/SignupPage'
 import ForgotPassword from '@/pages/auth/ForgotPasswordPage'
 import Unauthorized from '@/pages/public/Unauthorized'
+import DocsPage from '@/pages/public/DocsPage'
+import CareersPage from '@/pages/public/CareersPage'
 import ProtectedRoute from '@/routes/ProtectedRoute'
 
 const AppRoutes = () => (
@@ -17,6 +19,8 @@ const AppRoutes = () => (
     <Route path="/login" element={<LoginPage />} />
     <Route path="/register" element={<Register />} />
     <Route path="/forgot-password" element={<ForgotPassword />} />
+    <Route path="/docs" element={<DocsPage />} />
+    <Route path="/careers" element={<CareersPage />} />
     <Route
       path="/dashboard"
       element={
