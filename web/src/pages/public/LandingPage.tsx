@@ -20,7 +20,6 @@ import {
 } from 'lucide-react'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { firestore } from '@/firebaseConfig'
-import DukaSyncFooter from '@/components/layout/AppFooter'
 
 type ContactFormData = {
   name: string
@@ -588,29 +587,6 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-slate-100 bg-white/90 p-6 shadow-sm">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">Footer</p>
-            <h3 className="text-xl font-bold text-slate-900">Ready to keep every delivery and invoice in sync?</h3>
-            <p className="mt-1 text-sm text-slate-600">
-              DukaPap is the calm layer between wholesalers, shopkeepers, and customers—so nothing is retyped and
-              everything reconciles.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <button onClick={() => navigate('/login')} className="btn-primary">
-              Launch console
-              <ArrowRight className="h-4 w-4" />
-            </button>
-            <button onClick={handleScrollToWholesalers} className="btn-secondary">
-              Explore wholesalers
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <DukaSyncFooter />
     </div>
   )
 }
