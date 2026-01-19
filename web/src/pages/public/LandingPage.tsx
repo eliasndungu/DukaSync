@@ -1,5 +1,5 @@
 import { useRef, useState, type FormEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   ArrowRight,
   BarChart3,
@@ -9,6 +9,8 @@ import {
   Link2,
   Loader2,
   Mail,
+  Code2,
+  Briefcase,
   Plug,
   ShieldCheck,
   ShoppingBag,
@@ -18,6 +20,7 @@ import {
 } from 'lucide-react'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { firestore } from '@/firebaseConfig'
+import DukaSyncFooter from '@/components/layout/DukaSyncFooter'
 
 type ContactFormData = {
   name: string
@@ -134,6 +137,20 @@ const LandingPage: React.FC = () => {
               the POS or ERP you already use.
             </p>
           </div>
+          <div className="flex flex-wrap items-center gap-3 text-sm font-semibold text-brand-700">
+            <a href="#features" className="rounded-full bg-brand-50 px-3 py-1 hover:text-brand-800">
+              Features
+            </a>
+            <a href="#pricing" className="rounded-full bg-brand-50 px-3 py-1 hover:text-brand-800">
+              Pricing
+            </a>
+            <a href="#docs" className="rounded-full bg-brand-50 px-3 py-1 hover:text-brand-800">
+              API Docs
+            </a>
+            <a href="#careers" className="rounded-full bg-brand-50 px-3 py-1 hover:text-brand-800">
+              Careers
+            </a>
+          </div>
           <div className="flex flex-wrap items-center gap-3">
             <button onClick={() => navigate('/login')} className="btn-primary">
               Launch console
@@ -238,7 +255,7 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      <section ref={wholesalersRef} className="space-y-6">
+      <section id="features" ref={wholesalersRef} className="space-y-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-2">
             <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">Built for every role</p>
@@ -327,7 +344,7 @@ const LandingPage: React.FC = () => {
               ))}
             </div>
           </div>
-          <div className="rounded-2xl border border-dashed border-amber-200 bg-amber-50/80 p-5 shadow-sm">
+          <div id="pricing" className="rounded-2xl border border-dashed border-amber-200 bg-amber-50/80 p-5 shadow-sm">
             <p className="text-sm font-semibold text-amber-800">Pricing note</p>
             <p className="mt-2 text-sm text-amber-900">
               Start with a founder plan while we integrate your POS or ERP. Pay as your routes, branches, and customers
@@ -487,6 +504,90 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      <section id="docs" className="grid gap-6 rounded-2xl border border-slate-100 bg-white/90 p-6 shadow-sm lg:grid-cols-2">
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-700">
+            <Code2 className="h-4 w-4" />
+            For developers
+          </div>
+          <h3 className="text-2xl font-bold text-slate-900">API integrations that keep every system in sync</h3>
+          <p className="text-sm text-slate-600">
+            DukaSync APIs let you sync deliveries, invoices, and stock updates directly with your existing POS or ERP.
+            Use signed webhooks and sandbox keys to test before you go live.
+          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <Link to="/docs" className="btn-primary">
+              View API docs
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <button onClick={() => navigate('/login')} className="btn-secondary">
+              Launch console
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+        <div className="grid gap-3 rounded-xl border border-slate-100 bg-slate-50/60 p-4 text-sm text-slate-700">
+          <div className="flex items-center gap-2 font-semibold text-slate-900">
+            <Plug className="h-4 w-4 text-brand-700" />
+            Integration highlights
+          </div>
+          <ul className="space-y-2">
+            <li className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+              Sync deliveries and create invoices automatically.
+            </li>
+            <li className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+              Inventory updates stay aligned across wholesalers and shops.
+            </li>
+            <li className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+              Webhooks, API keys, and audit-friendly logs for every request.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="careers" className="grid gap-6 rounded-2xl border border-slate-100 bg-white/90 p-6 shadow-sm lg:grid-cols-2">
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-700">
+            <Briefcase className="h-4 w-4" />
+            Careers
+          </div>
+          <h3 className="text-2xl font-bold text-slate-900">Build the rails for African retail together</h3>
+          <p className="text-sm text-slate-600">
+            We&apos;re hiring engineers, operators, and partner success leads who care about reliable commerce
+            infrastructure. Join us to ship experiences that keep wholesalers, shops, and customers moving.
+          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <Link to="/careers" className="btn-primary">
+              See open roles
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link to="/docs" className="btn-secondary">
+              Explore platform
+            </Link>
+          </div>
+        </div>
+        <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-4">
+          <p className="text-sm font-semibold text-slate-900">What you&apos;ll shape</p>
+          <ul className="mt-3 space-y-2 text-sm text-slate-600">
+            <li className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-brand-700" />
+              APIs that sync orders, price lists, and settlement flows.
+            </li>
+            <li className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-brand-700" />
+              Journeys that make receiving deliveries effortless for shops.
+            </li>
+            <li className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-brand-700" />
+              Dashboards that keep finance, ops, and sales aligned.
+            </li>
+          </ul>
+        </div>
+      </section>
+
       <section className="rounded-2xl border border-slate-100 bg-white/90 p-6 shadow-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -508,6 +609,8 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <DukaSyncFooter />
     </div>
   )
 }

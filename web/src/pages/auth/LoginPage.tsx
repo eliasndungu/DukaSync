@@ -1,5 +1,6 @@
 import { type FormEvent, useMemo, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { FirebaseError } from 'firebase/app'
+import { useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { auth, firestore } from '@/services/firebase'
@@ -18,6 +19,22 @@ const isFirebaseConfigured = Boolean(import.meta.env.VITE_FIREBASE_API_KEY)
 
 const isUserRole = (value: unknown): value is UserRole =>
   value === 'wholesaler' || value === 'shopkeeper' || value === 'customer' || value === 'admin'
+
+const mapFirebaseAuthErrorToMessage = (error: unknown): string => {
+  if (error instanceof FirebaseError) {
+    if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential' || error.code === 'auth/invalid-email') {
+      return 'The email or password you entered is incorrect. Please check your details and try again.'
+    }
+    if (error.code === 'auth/user-not-found') {
+      return 'We couldn’t find an account with that email. You can sign up or try a different email.'
+    }
+    if (error.code === 'auth/network-request-failed') {
+      return 'We couldn’t reach the server. Check your internet connection and try again.'
+    }
+  }
+
+  return 'We couldn’t sign you in right now. Please try again or contact support if the problem continues.'
+}
 
 const LoginPage = () => {
   const navigate = useNavigate()
@@ -42,7 +59,7 @@ const LoginPage = () => {
     }
 
     setSubmitting(true)
-    setStatus('Signing you in to DukaPap…')
+    setStatus('Signing you in to DukaSync…')
 
     try {
       const credential = await signInWithEmailAndPassword(auth, email, password)
@@ -64,11 +81,8 @@ const LoginPage = () => {
       setStatus('Success! Redirecting to your dashboard…')
       navigate(destination, { replace: true })
     } catch (loginError) {
-      const message =
-        loginError instanceof Error
-          ? loginError.message
-          : 'Unable to sign in. Please verify your credentials and try again.'
-      setError(message)
+      console.error('Login failed', loginError)
+      setError(mapFirebaseAuthErrorToMessage(loginError))
       setStatus(null)
     } finally {
       setSubmitting(false)
@@ -81,9 +95,9 @@ const LoginPage = () => {
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-700">
           <Lock className="h-5 w-5" />
         </div>
-        <h1 className="text-3xl font-bold text-slate-900">Welcome back to DukaPap</h1>
+        <h1 className="text-3xl font-bold text-slate-900">Welcome back to DukaSync</h1>
         <p className="text-slate-600">
-          Sign in to access your DukaPap tools. We&apos;ll tailor the experience based on your role.
+          Sign in to access your DukaSync tools. We&apos;ll tailor the experience based on your role.
         </p>
       </div>
 
@@ -151,14 +165,22 @@ const LoginPage = () => {
         </form>
 
         <div className="mt-6 flex flex-wrap items-center justify-between text-sm text-slate-500">
-          <Link to="/forgot-password" className="font-semibold text-brand-700">
-            Forgot password?
-          </Link>
+          <button
+            type="button"
+            onClick={() => navigate('/forgot-password')}
+            className="font-semibold text-brand-700 hover:text-brand-800"
+          >
+            Forgot your password? Reset it here.
+          </button>
           <span>
-            New to DukaPap?{' '}
-            <Link to="/signup" className="font-semibold text-brand-700">
+            New to DukaSync?{' '}
+            <button
+              type="button"
+              onClick={() => navigate('/register')}
+              className="font-semibold text-brand-700 hover:text-brand-800"
+            >
               Create an account
-            </Link>
+            </button>
           </span>
         </div>
       </div>
