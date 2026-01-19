@@ -4,6 +4,8 @@ export type UserRole = 'wholesaler' | 'shopkeeper' | 'customer' | 'admin'
 
 export type AccountStatus = 'active' | 'invited' | 'disabled'
 
+export type CompanyType = 'wholesaler' | 'retail_shop'
+
 export interface UserProfile {
   uid: string
   accountType: UserRole
@@ -21,7 +23,7 @@ export interface UserProfile {
 export interface Company {
   id: string
   name: string
-  type: 'wholesaler' | 'shop'
+  type: CompanyType
   ownerUserId?: string
   phoneNumber?: string
   address?: string
@@ -47,7 +49,7 @@ export interface InventoryItem {
 export interface DeliveryLineItem {
   itemId: string
   quantity: number
-  unitPrice?: number
+  unitPrice: number
 }
 
 export interface Delivery {
