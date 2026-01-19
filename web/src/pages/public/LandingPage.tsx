@@ -20,7 +20,7 @@ import {
 } from 'lucide-react'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { firestore } from '@/firebaseConfig'
-import DukaSyncFooter from '@/components/layout/DukaSyncFooter'
+import DukaSyncFooter from '@/components/layout/AppFooter'
 
 type ContactFormData = {
   name: string
