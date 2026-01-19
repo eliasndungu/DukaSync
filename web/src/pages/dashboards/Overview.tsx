@@ -33,7 +33,7 @@ const Overview = () => {
   const { user, logout } = useAuth()
 
   return (
-    <div className="space-y-10">
+    <section className="space-y-10">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <p className="text-sm text-slate-500">Welcome back</p>
@@ -125,7 +125,7 @@ const Overview = () => {
           ))}
         </div>
       </section>
-    </div>
+    </section>
   )
 }
 
