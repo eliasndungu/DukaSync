@@ -22,7 +22,7 @@ const isUserRole = (value: unknown): value is UserRole =>
 
 const mapFirebaseAuthErrorToMessage = (error: unknown): string => {
   if (error instanceof FirebaseError) {
-    if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential' || error.code === 'auth/invalid-email') {
+    if (error.code === 'auth/invalid-credential' || error.code === 'auth/invalid-email') {
       return 'The email or password you entered is incorrect. Please check your details and try again.'
     }
     if (error.code === 'auth/user-not-found') {
