@@ -4,7 +4,7 @@ import Login from '@/pages/auth/Login'
 import Overview from '@/pages/dashboards/Overview'
 import AdminDashboard from '@/pages/dashboards/AdminDashboard'
 import WholesalerDashboard from '@/pages/dashboards/WholesalerDashboard'
-import ShopkeeperDashboard from '@/pages/dashboards/ShopkeeperDashboard'
+import ShopDashboard from '@/pages/dashboards/ShopDashboard'
 import CustomerDashboard from '@/pages/dashboards/CustomerDashboard'
 import { useAuth } from '@/context/AuthContext'
 import { Loader2 } from 'lucide-react'
@@ -61,7 +61,7 @@ const AppRoutes = () => (
       path="/dashboard/shopkeepers"
       element={
         <ProtectedRoute>
-          <ShopkeeperDashboard />
+          <ShopDashboard />
         </ProtectedRoute>
       }
     />
@@ -78,3 +78,29 @@ const AppRoutes = () => (
 )
 
 export default AppRoutes
+
+// Example role-protected routes (assumes ProtectedRoute supports role checks)
+// <Route
+//   path="/dashboard/wholesalers"
+//   element={
+//     <ProtectedRoute allowedRoles={['wholesaler']}>
+//       <WholesalerDashboard />
+//     </ProtectedRoute>
+//   }
+// />
+// <Route
+//   path="/dashboard/shopkeepers"
+//   element={
+//     <ProtectedRoute allowedRoles={['shopkeeper']}>
+//       <ShopDashboard />
+//     </ProtectedRoute>
+//   }
+// />
+// <Route
+//   path="/dashboard/customers"
+//   element={
+//     <ProtectedRoute allowedRoles={['customer']}>
+//       <CustomerDashboard />
+//     </ProtectedRoute>
+//   }
+// />
