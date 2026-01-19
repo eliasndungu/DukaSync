@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import Home from '@/pages/public/Home'
+import LandingPage from '@/pages/public/LandingPage'
 import Login from '@/pages/auth/Login'
 import Overview from '@/pages/dashboards/Overview'
 import AdminDashboard from '@/pages/dashboards/AdminDashboard'
@@ -31,7 +31,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
 
 const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<Home />} />
+    <Route path="/" element={<LandingPage />} />
     <Route path="/login" element={<Login />} />
     <Route
       path="/dashboard"
