@@ -24,7 +24,7 @@ const DocsPage = () => {
           POS or ERP. In the meantime, contact us for sandbox keys and integration guides.
         </p>
         <div className="flex flex-wrap gap-3">
-          <button type="button" onClick={() => navigate('/#docs')} className="btn-primary">
+          <button type="button" onClick={() => window.location.assign('/#docs')} className="btn-primary">
             Return to overview
           </button>
           <button type="button" onClick={() => navigate('/login')} className="btn-secondary">

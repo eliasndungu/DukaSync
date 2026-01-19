@@ -24,7 +24,7 @@ const CareersPage = () => {
           problems you want to solve, and we&apos;ll reach out when roles open.
         </p>
         <div className="flex flex-wrap gap-3">
-          <button type="button" onClick={() => navigate('/#careers')} className="btn-primary">
+          <button type="button" onClick={() => window.location.assign('/#careers')} className="btn-primary">
             Return to overview
           </button>
           <button type="button" onClick={() => navigate('/login')} className="btn-secondary">
