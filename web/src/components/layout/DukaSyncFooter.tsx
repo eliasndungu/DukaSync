@@ -70,19 +70,19 @@ const DukaSyncFooter: FC = () => {
             <li>Nairobi, Kenya</li>
             <li>info@dukasync.com</li>
             <li>
-              <a href="https://www.linkedin.com/in/elias-ndungu" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-brand-700">
+              <a href="https://www.linkedin.com/in/elias-ndungu" target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 hover:text-brand-700">
                 <Linkedin className="h-4 w-4" />
                 LinkedIn
               </a>
             </li>
             <li>
-              <a href="https://github.com/eliasndungu" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-brand-700">
+              <a href="https://github.com/eliasndungu" target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 hover:text-brand-700">
                 <Github className="h-4 w-4" />
                 GitHub
               </a>
             </li>
             <li>
-              <a href="https://blog.eliasndungu.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-brand-700">
+              <a href="https://blog.eliasndungu.com" target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 hover:text-brand-700">
                 <Rss className="h-4 w-4" />
                 Blog
               </a>
