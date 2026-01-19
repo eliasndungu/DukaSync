@@ -5,7 +5,7 @@ export type StorageBucket = string
 export const isValidStorageBucket = (bucket: string): boolean => {
   const trimmed = bucket.trim()
   if (!trimmed) return false
-  return /^[a-z0-9][a-z0-9.-]*[a-z0-9]$/i.test(trimmed)
+  return /^(?!.*\.\.)[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/i.test(trimmed)
 }
 
 export const normalizeStorageBucket = (bucket?: string | null): StorageBucket | null => {

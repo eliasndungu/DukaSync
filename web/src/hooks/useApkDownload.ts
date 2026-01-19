@@ -20,6 +20,16 @@ const ENV_STORAGE_BUCKET =
   import.meta.env.VITE_FIREBASE_STORAGE_BUCKET ?? import.meta.env.REACT_APP_FIREBASE_STORAGE_BUCKET ?? ''
 const ENV_FALLBACK_URL = import.meta.env.VITE_APK_FALLBACK_URL ?? ''
 
+const isSafeHttpUrl = (url: string): boolean => {
+  try {
+    const parsed = new URL(url)
+    return parsed.protocol === 'https:' || parsed.protocol === 'http:'
+  } catch (error) {
+    console.error('Invalid URL provided to useApkDownload', error)
+    return false
+  }
+}
+
 export const useApkDownload = (options?: UseApkDownloadOptions): UseApkDownloadResult => {
   const { apkPath, bucket, fallbackUrl } = options ?? {}
   const [interactionError, setInteractionError] = useState<string | null>(null)
@@ -45,7 +55,7 @@ export const useApkDownload = (options?: UseApkDownloadOptions): UseApkDownloadR
   }, [apkUrl, normalizedBucket, normalizedPath])
 
   const error = interactionError ?? baseError
-  const loading = false
+  const loading = !apkUrl && !baseError
 
   const requestDownload = useCallback(() => {
     setInteractionError(null)
@@ -57,15 +67,20 @@ export const useApkDownload = (options?: UseApkDownloadOptions): UseApkDownloadR
 
     const target = apkUrl ?? resolvedFallbackUrl
 
-    if (target) {
-      const opened = window.open(target, '_blank', 'noopener,noreferrer')
-      if (!opened) {
-        setInteractionError('Please allow pop-ups to download the app.')
-      }
+    if (!target) {
+      setInteractionError('APK download is currently unavailable.')
       return
     }
 
-    setInteractionError('APK download is currently unavailable.')
+    if (!isSafeHttpUrl(target)) {
+      setInteractionError('Download URL is invalid.')
+      return
+    }
+
+    const opened = window.open(target, '_blank', 'noopener,noreferrer')
+    if (!opened) {
+      setInteractionError('Please allow pop-ups to download the app.')
+    }
   }, [apkUrl, baseError, resolvedFallbackUrl])
 
   return {
