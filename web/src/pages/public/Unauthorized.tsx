@@ -2,6 +2,8 @@ import { ShieldAlert } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const Unauthorized = () => {
+  const brandName = 'DukaPap'
+
   return (
     <div className="mx-auto max-w-2xl rounded-2xl bg-white/80 p-10 text-center shadow-sm ring-1 ring-slate-100">
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-50 text-rose-600">
@@ -10,7 +12,7 @@ const Unauthorized = () => {
       <h1 className="mt-6 text-3xl font-semibold text-slate-900">Access restricted</h1>
       <p className="mt-3 text-base text-slate-600">
         Your account doesn’t have permission to view this area. If you believe this is a mistake,
-        please contact your DukaPap admin to request access.
+        please contact your {brandName} admin to request access.
       </p>
       <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
         <Link

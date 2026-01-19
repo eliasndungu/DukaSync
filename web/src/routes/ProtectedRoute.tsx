@@ -13,6 +13,9 @@ type FirestoreUser = {
   [key: string]: unknown
 }
 
+const brandName = 'DukaPap'
+const validRoles: AllowedRole[] = ['admin', 'wholesaler', 'shopkeeper', 'customer']
+
 type ProtectedRouteProps = {
   allowedRoles?: AllowedRole[]
   children: ReactNode
@@ -70,7 +73,7 @@ const ProtectedRoute = ({ allowedRoles, children }: ProtectedRouteProps) => {
         const data = userDoc.data() as FirestoreUser | undefined
         const rawRole = data?.role ?? data?.accountType
         const normalizedRole = rawRole
-          ? (rawRole.toString().toLowerCase() as AllowedRole)
+          ? validRoles.find((role) => role === rawRole.toString().toLowerCase()) ?? null
           : null
 
         if (isMounted) {
@@ -115,7 +118,7 @@ const ProtectedRoute = ({ allowedRoles, children }: ProtectedRouteProps) => {
         </div>
         <h2 className="text-2xl font-semibold text-slate-800">Configuration Error</h2>
         <p className="mt-3 max-w-xl text-base text-slate-600">
-          DukaPap couldn’t connect to Firebase. Please verify your environment variables and try
+          {brandName} couldn’t connect to Firebase. Please verify your environment variables and try
           again.
         </p>
         <div className="mt-6 inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-indigo-700 shadow-sm ring-1 ring-indigo-100">
@@ -133,7 +136,7 @@ const ProtectedRoute = ({ allowedRoles, children }: ProtectedRouteProps) => {
         </div>
         <p className="text-sm font-semibold text-indigo-700">Checking authentication…</p>
         <p className="mt-2 max-w-md text-sm text-slate-600">
-          Hold tight while we confirm your DukaPap access and workspace permissions.
+          Hold tight while we confirm your {brandName} access and workspace permissions.
         </p>
       </div>
     )
