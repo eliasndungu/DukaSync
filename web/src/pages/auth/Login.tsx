@@ -1,6 +1,9 @@
 import { type FormEvent, useState } from 'react'
+import { doc, getDoc } from 'firebase/firestore'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
+import { auth, firestore } from '@/services/firebase'
+import { getDashboardPathForRole } from '@/utils/dashboardRoutes'
 import { Lock, LogIn } from 'lucide-react'
 
 const Login = () => {
@@ -16,8 +19,21 @@ const Login = () => {
     setError(null)
     setSubmitting(true)
     try {
-      await login(email, password)
-      navigate('/dashboard')
+      const credential = await login(email, password)
+      const currentUser = credential?.user ?? auth.currentUser
+
+      let destination = '/dashboard'
+      if (currentUser) {
+        try {
+          const profileSnapshot = await getDoc(doc(firestore, 'users', currentUser.uid))
+          const profileData = profileSnapshot.data() as { accountType?: string; role?: string } | undefined
+          destination = getDashboardPathForRole(profileData?.accountType ?? profileData?.role)
+        } catch (profileError) {
+          console.warn('Unable to fetch user profile for redirect', profileError)
+        }
+      }
+
+      navigate(destination, { replace: true })
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'Unable to sign in. Please check your credentials and try again.'

@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { ref, serverTimestamp as dbServerTimestamp, set as setRtdb } from 'firebase/database'
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { auth, database, firestore } from '@/services/firebase'
+import { getDashboardPathForRole } from '@/utils/dashboardRoutes'
 import type { UserRole } from '@/types/domain'
 import { BadgePlus, Building2, Loader2, Store } from 'lucide-react'
 import DukaSyncTermsModal from '@/components/modals/DukaSyncTermsModal'
@@ -747,8 +748,9 @@ const SignupPage = () => {
         }
       }
 
-      setStatus(onboardingNotice ?? 'Account created! Redirecting to login…')
-      navigate('/login', { replace: true })
+      const destination = getDashboardPathForRole(accountType)
+      setStatus(onboardingNotice ?? 'Account created! Redirecting to your dashboard…')
+      navigate(destination, { replace: true })
     } catch (submitError) {
       console.error('Signup error:', submitError)
       const message =
