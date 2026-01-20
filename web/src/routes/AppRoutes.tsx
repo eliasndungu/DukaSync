@@ -49,20 +49,12 @@ const AppRoutes = () => (
     <Route
       path="/dashboard/shopkeepers"
       element={
-        <ProtectedRoute>
+        <ProtectedRoute allowedRoles={['shopkeeper']}>
           <ShopDashboard />
         </ProtectedRoute>
       }
     />
     <Route
-      path="/dashboard/customers"
-      element={
-        <ProtectedRoute>
-          <CustomerDashboard />
-        </ProtectedRoute>
-      }
-    />
-        <Route
       path="/dashboard/customers"
       element={
         <ProtectedRoute allowedRoles={['customer']}>
@@ -76,5 +68,3 @@ const AppRoutes = () => (
 )
 
 export default AppRoutes
-
-//Example role-protected routes (assumes ProtectedRoute supports role checks)

@@ -11,6 +11,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  type UserCredential,
   type User,
 } from 'firebase/auth'
 import { auth } from '@/services/firebase'
@@ -18,7 +19,7 @@ import { auth } from '@/services/firebase'
 type AuthContextValue = {
   user: User | null
   loading: boolean
-  login: (email: string, password: string) => Promise<void>
+  login: (email: string, password: string) => Promise<UserCredential>
   logout: () => Promise<void>
 }
 
@@ -40,7 +41,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const login = useCallback(async (email: string, password: string) => {
     setLoading(true)
     try {
-      await signInWithEmailAndPassword(auth, email, password)
+      return await signInWithEmailAndPassword(auth, email, password)
     } finally {
       setLoading(false)
     }
