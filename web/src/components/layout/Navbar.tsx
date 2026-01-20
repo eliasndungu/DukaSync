@@ -36,6 +36,12 @@ const Navbar = () => {
 
       try {
         const userDoc = await getDoc(doc(firestore, 'users', user.uid))
+        if (!userDoc.exists()) {
+          if (isMounted) {
+            setDisplayName(user.email ?? null)
+          }
+          return
+        }
         const data = userDoc.data() as UserProfileDoc | undefined
         if (isMounted) {
           setDisplayName(data?.displayName ?? data?.name ?? user.email ?? null)
@@ -48,7 +54,7 @@ const Navbar = () => {
       }
     }
 
-    void fetchDisplayName()
+    fetchDisplayName()
 
     return () => {
       isMounted = false
