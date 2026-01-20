@@ -470,6 +470,9 @@ const normalizeBusinessKey = (name: string): string =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
 
+// Trial period duration in days for business accounts
+const TRIAL_PERIOD_DAYS = 30
+
 interface SubscriptionPayload {
   ownerType: 'wholesaler' | 'shop'
   ownerId: string
@@ -478,14 +481,18 @@ interface SubscriptionPayload {
 
 const createBusinessSubscription = async ({ ownerType, ownerId, planId }: SubscriptionPayload) => {
   const subscriptionRef = doc(firestore, 'subscriptions', ownerId)
+  
+  // Calculate trial end date (30 days from now)
+  const now = new Date()
+  const trialEndDate = new Date(now.getTime() + TRIAL_PERIOD_DAYS * 24 * 60 * 60 * 1000)
+  
   await setDoc(subscriptionRef, {
     ownerType,
     ownerId,
     planId,
     status: 'trial',
-    // TODO: set real trial end date and period end from backend
-    trialEndsAt: null,
-    currentPeriodEnd: null,
+    trialEndsAt: trialEndDate,
+    currentPeriodEnd: trialEndDate,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   })
