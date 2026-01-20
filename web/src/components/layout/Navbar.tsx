@@ -15,6 +15,15 @@ type UserProfileDoc = {
   name?: string
 }
 
+const isUserProfileDoc = (data: unknown): data is UserProfileDoc => {
+  if (!data || typeof data !== 'object') return false
+  const record = data as Record<string, unknown>
+  return (
+    (record.displayName === undefined || typeof record.displayName === 'string') &&
+    (record.name === undefined || typeof record.name === 'string')
+  )
+}
+
 const Navbar = () => {
   const { user, logout } = useAuth()
   const [displayName, setDisplayName] = useState<string | null>(null)
@@ -22,35 +31,36 @@ const Navbar = () => {
 
   useEffect(() => {
     let isMounted = true
+    const safeSetDisplayName = (value: string | null) => {
+      if (isMounted) setDisplayName(value)
+    }
 
     const fetchDisplayName = async () => {
       if (!user) {
-        if (isMounted) setDisplayName(null)
+        safeSetDisplayName(null)
         return
       }
 
       if (user.displayName) {
-        if (isMounted) setDisplayName(user.displayName)
+        safeSetDisplayName(user.displayName)
         return
       }
 
       try {
         const userDoc = await getDoc(doc(firestore, 'users', user.uid))
         if (!userDoc.exists()) {
-          if (isMounted) {
-            setDisplayName(user.email ?? null)
-          }
+          safeSetDisplayName(user.email ?? null)
           return
         }
-        const data = userDoc.data() as UserProfileDoc | undefined
-        if (isMounted) {
-          setDisplayName(data?.displayName ?? data?.name ?? user.email ?? null)
+        const data = userDoc.data()
+        if (isUserProfileDoc(data)) {
+          safeSetDisplayName(data.displayName ?? data.name ?? user.email ?? null)
+        } else {
+          safeSetDisplayName(user.email ?? null)
         }
       } catch (error) {
         console.error('Failed to fetch user profile', error)
-        if (isMounted) {
-          setDisplayName(user.email ?? null)
-        }
+        safeSetDisplayName(user.email ?? null)
       }
     }
 
