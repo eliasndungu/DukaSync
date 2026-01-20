@@ -10,6 +10,11 @@ const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? 'text-brand-700' : 'text-slate-600 hover:text-slate-900'
   }`
 
+type UserProfileDoc = {
+  displayName?: string
+  name?: string
+}
+
 const Navbar = () => {
   const { user, logout } = useAuth()
   const [displayName, setDisplayName] = useState<string | null>(null)
@@ -25,13 +30,13 @@ const Navbar = () => {
       }
 
       if (user.displayName) {
-        setDisplayName(user.displayName)
+        if (isMounted) setDisplayName(user.displayName)
         return
       }
 
       try {
         const userDoc = await getDoc(doc(firestore, 'users', user.uid))
-        const data = userDoc.data() as { displayName?: string; name?: string } | undefined
+        const data = userDoc.data() as UserProfileDoc | undefined
         if (isMounted) {
           setDisplayName(data?.displayName ?? data?.name ?? user.email ?? null)
         }
