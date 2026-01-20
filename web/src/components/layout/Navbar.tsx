@@ -72,7 +72,7 @@ const Navbar = () => {
   }, [user])
 
   return (
-    <header className="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-slate-100">
+    <header className="sticky top-0 z-30 border-b border-slate-100 bg-white/90 backdrop-blur">
       <div className="container flex items-center justify-between py-4">
         <Link to="/" className="flex items-center gap-2 text-lg font-semibold text-slate-900">
           <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
@@ -81,6 +81,7 @@ const Navbar = () => {
           DukaSync
         </Link>
 
+        {/* Desktop nav links */}
         <nav className="hidden items-center gap-6 md:flex">
           <NavLink to="/" className={navLinkClass}>
             Home
@@ -88,11 +89,15 @@ const Navbar = () => {
           <NavLink to="/dashboard" className={navLinkClass}>
             Workspaces
           </NavLink>
-          <NavLink to="/login" className={navLinkClass}>
-            Login
-          </NavLink>
+          {/* Hide Login link when user is authenticated */}
+          {!user && (
+            <NavLink to="/login" className={navLinkClass}>
+              Login
+            </NavLink>
+          )}
         </nav>
 
+        {/* Desktop auth actions */}
         <div className="hidden items-center gap-3 md:flex">
           {user ? (
             <>
@@ -110,6 +115,7 @@ const Navbar = () => {
           )}
         </div>
 
+        {/* Mobile menu toggle */}
         <button
           className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 md:hidden"
           onClick={() => setOpen((prev) => !prev)}
@@ -119,6 +125,7 @@ const Navbar = () => {
         </button>
       </div>
 
+      {/* Mobile nav */}
       {open && (
         <div className="border-t border-slate-100 bg-white px-4 pb-4 pt-2 md:hidden">
           <div className="flex flex-col gap-3">
@@ -128,15 +135,28 @@ const Navbar = () => {
             <NavLink to="/dashboard" className={navLinkClass} onClick={() => setOpen(false)}>
               Workspaces
             </NavLink>
-            <NavLink to="/login" className={navLinkClass} onClick={() => setOpen(false)}>
-              Login
-            </NavLink>
+            {/* Hide Login link when user is authenticated */}
+            {!user && (
+              <NavLink to="/login" className={navLinkClass} onClick={() => setOpen(false)}>
+                Login
+              </NavLink>
+            )}
             {user ? (
-              <button onClick={logout} className="btn-secondary w-full">
+              <button
+                onClick={() => {
+                  logout()
+                  setOpen(false)
+                }}
+                className="btn-secondary w-full"
+              >
                 Logout
               </button>
             ) : (
-              <Link to="/login" className="btn-primary w-full" onClick={() => setOpen(false)}>
+              <Link
+                to="/login"
+                className="btn-primary w-full"
+                onClick={() => setOpen(false)}
+              >
                 Sign in
               </Link>
             )}
