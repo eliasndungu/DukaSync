@@ -472,6 +472,7 @@ const normalizeBusinessKey = (name: string): string =>
 
 // Trial period duration in days for business accounts
 const TRIAL_PERIOD_DAYS = 30
+const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000
 
 interface SubscriptionPayload {
   ownerType: 'wholesaler' | 'shop'
@@ -484,7 +485,7 @@ const createBusinessSubscription = async ({ ownerType, ownerId, planId }: Subscr
   
   // Calculate trial end date (30 days from now)
   const now = new Date()
-  const trialEndDate = new Date(now.getTime() + TRIAL_PERIOD_DAYS * 24 * 60 * 60 * 1000)
+  const trialEndDate = new Date(now.getTime() + TRIAL_PERIOD_DAYS * MILLISECONDS_PER_DAY)
   
   await setDoc(subscriptionRef, {
     ownerType,
