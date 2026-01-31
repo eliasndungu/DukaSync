@@ -3,7 +3,7 @@ import Login from '@/pages/auth/Login'
 import LandingPage from '@/pages/public/LandingPage'
 import Overview from '@/pages/dashboards/Overview'
 import AdminDashboard from '@/pages/dashboards/AdminDashboard'
-import WholesalerDashboard from '@/pages/dashboards/WholesalerDashboard'
+import WholesalerHome from '@/pages/wholesaler'
 import ShopDashboard from '@/pages/dashboards/ShopDashboard'
 import CustomerDashboard from '@/pages/dashboards/CustomerDashboard'
 import Register from '@/pages/auth/SignupPage'
@@ -42,7 +42,7 @@ const AppRoutes = () => (
       path="/dashboard/wholesalers"
       element={
         <ProtectedRoute allowedRoles={['wholesaler', 'shopkeeper']}>
-          <WholesalerDashboard />
+          <WholesalerHome />
         </ProtectedRoute>
       }
     />
