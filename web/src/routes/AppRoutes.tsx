@@ -4,7 +4,7 @@ import LandingPage from '@/pages/public/LandingPage'
 import Overview from '@/pages/dashboards/Overview'
 import AdminDashboard from '@/pages/dashboards/AdminDashboard'
 import WholesalerHome from '@/pages/wholesaler'
-import ShopDashboard from '@/pages/dashboards/ShopDashboard'
+import ShopPage from '@/pages/shop'
 import CustomerDashboard from '@/pages/dashboards/CustomerDashboard'
 import Register from '@/pages/auth/SignupPage'
 import ForgotPassword from '@/pages/auth/ForgotPasswordPage'
@@ -50,7 +50,7 @@ const AppRoutes = () => (
       path="/dashboard/shopkeepers"
       element={
         <ProtectedRoute allowedRoles={['shopkeeper']}>
-          <ShopDashboard />
+          <ShopPage />
         </ProtectedRoute>
       }
     />
