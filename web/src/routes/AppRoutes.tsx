@@ -3,9 +3,9 @@ import Login from '@/pages/auth/Login'
 import LandingPage from '@/pages/public/LandingPage'
 import Overview from '@/pages/dashboards/Overview'
 import AdminDashboard from '@/pages/dashboards/AdminDashboard'
-import WholesalerDashboard from '@/pages/dashboards/WholesalerDashboard'
-import ShopDashboard from '@/pages/dashboards/ShopDashboard'
-import CustomerDashboard from '@/pages/dashboards/CustomerDashboard'
+import WholesalerHome from '@/pages/wholesaler'
+import ShopPage from '@/pages/shop'
+import CustomerPage from '@/pages/customer'
 import Register from '@/pages/auth/SignupPage'
 import ForgotPassword from '@/pages/auth/ForgotPasswordPage'
 import Unauthorized from '@/pages/public/Unauthorized'
@@ -42,7 +42,7 @@ const AppRoutes = () => (
       path="/dashboard/wholesalers"
       element={
         <ProtectedRoute allowedRoles={['wholesaler', 'shopkeeper']}>
-          <WholesalerDashboard />
+          <WholesalerHome />
         </ProtectedRoute>
       }
     />
@@ -50,7 +50,7 @@ const AppRoutes = () => (
       path="/dashboard/shopkeepers"
       element={
         <ProtectedRoute allowedRoles={['shopkeeper']}>
-          <ShopDashboard />
+          <ShopPage />
         </ProtectedRoute>
       }
     />
@@ -58,7 +58,7 @@ const AppRoutes = () => (
       path="/dashboard/customers"
       element={
         <ProtectedRoute allowedRoles={['customer']}>
-          <CustomerDashboard />
+          <CustomerPage />
         </ProtectedRoute>
       }
     />
