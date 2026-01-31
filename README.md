@@ -192,6 +192,25 @@ Tailwind is configured with:
 
 Global styles live in `src/index.css`.
 
+### Using Google Stitch designs in the frontend
+
+If you have UI screens or components in Google Stitch, you can bring them into the Vite + Tailwind app with a few simple steps:
+
+1. **Export assets**: From Google Stitch, export images/illustrations as optimized PNG/SVG files. Place them in `web/src/assets/`.
+2. **Copy layout & spacing**: Translate the frame structure into React components under `web/src/components` or `web/src/pages`, keeping the same container widths and spacing. Tailwind utility classes map well to Stitch frame properties (padding, gap, radius, shadows).
+3. **Reuse colors & typography**: Add any new brand tokens to `tailwind.config.ts` under `theme.extend.colors` and `theme.extend.fontFamily` so they are available as utilities (e.g., `bg-brand-500`, `font-display`).
+4. **Import assets in components**: Reference exported images with ES module imports, e.g.:
+
+   ```tsx
+   import heroIllustration from '@/assets/hero.svg'
+   // ...
+   <img src={heroIllustration} alt="Hero" className="max-w-md" />
+   ```
+
+5. **Preview changes**: Run `npm run dev` in `web/` to visually match the Stitch design. Use `npm run build` to ensure the production build still succeeds.
+
+This keeps Stitch-delivered designs aligned with the existing React/Tailwind setup without additional tooling.
+
 ### Absolute imports
 
 Vite is configured with an alias:
