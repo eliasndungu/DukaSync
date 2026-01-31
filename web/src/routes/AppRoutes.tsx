@@ -5,7 +5,7 @@ import Overview from '@/pages/dashboards/Overview'
 import AdminDashboard from '@/pages/dashboards/AdminDashboard'
 import WholesalerHome from '@/pages/wholesaler'
 import ShopPage from '@/pages/shop'
-import CustomerDashboard from '@/pages/dashboards/CustomerDashboard'
+import CustomerPage from '@/pages/customer'
 import Register from '@/pages/auth/SignupPage'
 import ForgotPassword from '@/pages/auth/ForgotPasswordPage'
 import Unauthorized from '@/pages/public/Unauthorized'
@@ -58,7 +58,7 @@ const AppRoutes = () => (
       path="/dashboard/customers"
       element={
         <ProtectedRoute allowedRoles={['customer']}>
-          <CustomerDashboard />
+          <CustomerPage />
         </ProtectedRoute>
       }
     />
